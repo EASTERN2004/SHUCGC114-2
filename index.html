@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>世新卡研 期末社大</title>
 
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	<link href="images/favicon.ico.ico" rel="icon" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link href="images/favicon.ico.ico" rel="icon" />
 
     <style>
         /* --- 基礎設定 --- */
@@ -19,11 +19,22 @@
             overflow-x: hidden; /* 禁止水平捲動 */
         }
 
-        /* --- 1. 封面區塊 (保持原本設計) --- */
+        /* --- 1. 封面區塊 (已加入背景圖片) --- */
         .landing-screen {
             min-height: 100vh;
             width: 100%;
-            background-color: #709c63;
+            
+            /* --- 背景設定 (合併了您的綠色底色與背景圖片) --- */
+            background-color: #709c63; /* 圖片載入前的預設底色 */
+            
+            /* 這裡設定背景圖片 (請更換 url 內的網址) */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://picsum.photos/1920/1080?random=1');
+            
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* 視差滾動效果 */
+
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -32,7 +43,7 @@
             box-sizing: border-box;
         }
 
-        /* --- 主標題 --- */
+        /* --- 主標題 (保留您的設定) --- */
         .main-title {
             color: white;
             font-size: 3.0rem;
@@ -45,6 +56,8 @@
             padding-bottom: 20px;
             width: 100%;
             max-width: 800px;
+            /* 為了在圖片上看得清楚，加一點文字陰影 */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
         }
 
         /* --- 選單容器 --- */
@@ -69,11 +82,12 @@
             margin-bottom: 10px;
             border-bottom: 1px dashed #ffffff;
             padding-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
-        /* --- 按鈕樣式 (修改為 cursor: pointer) --- */
+        /* --- 按鈕樣式 (保留您的顏色 #a3af4c) --- */
         .nav-btn {
-            background-color: #a3af4c;
+            background-color: rgba(163, 175, 76, 0.9); /* #a3af4c 轉為 RGBA 加上一點透明度 */
             color: white;
             padding: 12px;
             text-align: center;
@@ -83,85 +97,79 @@
             font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(221, 156, 156, 0.3);
-            border: 1px solid #4CAF50;
-            cursor: pointer; /* 讓游標變手指 */
-            display: block;  /* 確保按鈕佔滿寬度 */
+            border: 1px solid #8e9942; /* 稍微深一點的邊框 */
+            cursor: pointer;
+            backdrop-filter: blur(2px);
         }
 
         .nav-btn:hover {
             background-color: #333;
-            color: #4CAF50;
+            color: #a3af4c;
             transform: translateY(-2px);
+            border-color: #a3af4c;
         }
 
-        /* ------------------------------------------------ */
-        /* --- 關鍵新增：Modal (彈跳視窗) 的 CSS --- */
-        /* ------------------------------------------------ */
-
-        /* 1. 遮罩背景 (預設隱藏 display: none) */
+        /* --- Modal (彈跳視窗) --- */
         .modal-overlay {
-            display: none; /* 預設不顯示 */
-            position: fixed; /* 固定在視窗上，不隨捲動跑掉 */
-            z-index: 1000; /* 確保在最上層 */
+            display: none;
+            position: fixed;
+            z-index: 1000;
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
-            overflow: auto; /* 如果內容太長，視窗內可以捲動 */
-            background-color: rgba(0,0,0,0.7); /* 半透明黑色背景 */
-            backdrop-filter: blur(5px); /* 背景模糊效果 (讓質感提升) */
-            animation: fadeIn 0.3s; /* 淡入動畫 */
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s;
         }
 
-        /* 2. 視窗內容區塊 */
         .modal-content {
             background-color: #fefefe;
-            margin: 10vh auto; /* 距離頂部 10% */
-            padding: 30px;
+            margin: 10vh auto;
+            padding: 40px 30px; /* 增加內距 */
             border: 1px solid #888;
             width: 90%;
-            max-width: 500px; /* 最大寬度 */
+            max-width: 500px;
             border-radius: 10px;
-            position: relative;
+            position: relative; /* 關鍵：讓 X 按鈕可以定位 */
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            color: #333; /* 內容文字顏色 */
+            color: #333;
         }
 
-        /* 3. 關閉按鈕 (X) */
+        /* --- 修正後的關閉按鈕 (確保一定看得到) --- */
         .close-btn {
-            color: #aaa;
-            float: right;
-            font-size: 40px;
+            position: absolute; /* 強制定位在右上角 */
+            top: 15px;
+            right: 20px;
+            color: #555;
+            font-size: 35px;
             font-weight: bold;
             cursor: pointer;
-            line-height: 1; /* 修正垂直對齊 */
+            line-height: 1;
+            transition: color 0.2s;
+            z-index: 101;
         }
 
-        .close-btn:hover,
-        .close-btn:focus {
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
+        .close-btn:hover {
+            color: #ff0000; /* 滑鼠移過去變紅色 */
         }
 
-        /* 4. Modal 標題樣式 */
         .modal-content h2 {
-            margin-top: 0;
-            border-left: 5px solid #4CAF50;
+            margin-top: 10px;
+            border-left: 5px solid #a3af4c; /* 標題線條也改成您的綠色 */
             padding-left: 10px;
             color: #333;
         }
 
-        /* 淡入動畫定義 */
         @keyframes fadeIn {
             from {opacity: 0;}
             to {opacity: 1;}
         }
 
-        /* 手機版適應 */
         @media (max-width: 768px) {
             .menu-wrapper { flex-direction: column; gap: 30px; }
-            .main-title { font-size: 2.5rem; letter-spacing: 0.5rem; text-indent: 0.5rem; }
+            .main-title { font-size: 2.0rem; letter-spacing: 0.5rem; text-indent: 0.5rem; }
             .modal-content { margin: 20% auto; width: 85%; }
         }
     </style>
@@ -196,8 +204,7 @@
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal1')">&times;</span>
             <h2>這裡是第 1 個視窗</h2>
-            <p>這是按鈕 1 的專屬內容。您可以在這裡放入文字、圖片或影片。</p>
-            <p>例如：<br>社團名稱：OO社<br>介紹：....</p>
+            <p>這是按鈕 1 的專屬內容。</p>
         </div>
     </div>
 
@@ -274,23 +281,18 @@
     </div>
 
     <script>
-        // 打開視窗
         function openModal(modalId) {
             var modal = document.getElementById(modalId);
             modal.style.display = "block";
-            // 當視窗打開時，禁止背景捲動
             document.body.style.overflow = "hidden";
         }
 
-        // 關閉視窗 (點擊 X)
         function closeModal(modalId) {
             var modal = document.getElementById(modalId);
             modal.style.display = "none";
-            // 視窗關閉後，恢復背景捲動
-            document.body.style.overflow = "auto"; // 如果希望主頁不捲動，這裡可以保持 hidden
+            document.body.style.overflow = "auto";
         }
 
-        // 點擊黑色背景區域也能關閉視窗
         function closeOutside(event, modalId) {
             if (event.target.id === modalId) {
                 closeModal(modalId);
