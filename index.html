@@ -7,32 +7,31 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <link href="images/favicon.ico.ico" rel="icon" />
-
     <style>
         /* --- 基礎設定 --- */
         body {
             font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #333; /* 為了防止彈窗邊緣漏白，底色統一 */
-            overflow-x: hidden; /* 禁止水平捲動 */
+            background-color: #333;
+            overflow-x: hidden;
         }
 
-        /* --- 1. 封面區塊 (已加入背景圖片) --- */
+        /* --- 1. 封面區塊 (修正圖片連結) --- */
         .landing-screen {
             min-height: 100vh;
             width: 100%;
             
-            /* --- 背景設定 (合併了您的綠色底色與背景圖片) --- */
-            background-color: #709c63; /* 圖片載入前的預設底色 */
+            /* 這是原本的綠色底色 */
+            background-color: #709c63;
             
-            /* 這裡設定背景圖片 (請更換 url 內的網址) */
+            /* --- 關鍵修改：補上背景圖片指令 --- */
+            /* 請確保您的圖片已經改名為 bg.png */
             background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('bg.png');
             
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
+            background-size: cover;       /* 讓圖片充滿整個螢幕 */
+            background-position: center;  /* 圖片置中 */
+            background-repeat: no-repeat; /* 不重複 */
             background-attachment: fixed; /* 視差滾動效果 */
 
             display: flex;
@@ -43,7 +42,7 @@
             box-sizing: border-box;
         }
 
-        /* --- 主標題 (保留您的設定) --- */
+        /* --- 主標題 --- */
         .main-title {
             color: white;
             font-size: 3.0rem;
@@ -56,8 +55,7 @@
             padding-bottom: 20px;
             width: 100%;
             max-width: 800px;
-            /* 為了在圖片上看得清楚，加一點文字陰影 */
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
         }
 
         /* --- 選單容器 --- */
@@ -85,9 +83,9 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
-        /* --- 按鈕樣式 (保留您的顏色 #a3af4c) --- */
+        /* --- 按鈕樣式 --- */
         .nav-btn {
-            background-color: rgba(163, 175, 76, 0.9); /* #a3af4c 轉為 RGBA 加上一點透明度 */
+            background-color: rgba(163, 175, 76, 0.9); /* 稍微透明一點 */
             color: white;
             padding: 12px;
             text-align: center;
@@ -97,7 +95,7 @@
             font-weight: bold;
             transition: all 0.3s ease;
             box-shadow: 0 4px 6px rgba(221, 156, 156, 0.3);
-            border: 1px solid #8e9942; /* 稍微深一點的邊框 */
+            border: 1px solid #8e9942;
             cursor: pointer;
             backdrop-filter: blur(2px);
         }
@@ -127,19 +125,18 @@
         .modal-content {
             background-color: #fefefe;
             margin: 10vh auto;
-            padding: 40px 30px; /* 增加內距 */
+            padding: 40px 30px;
             border: 1px solid #888;
             width: 90%;
             max-width: 500px;
             border-radius: 10px;
-            position: relative; /* 關鍵：讓 X 按鈕可以定位 */
+            position: relative;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
             color: #333;
         }
 
-        /* --- 修正後的關閉按鈕 (確保一定看得到) --- */
         .close-btn {
-            position: absolute; /* 強制定位在右上角 */
+            position: absolute;
             top: 15px;
             right: 20px;
             color: #555;
@@ -151,22 +148,16 @@
             z-index: 101;
         }
 
-        .close-btn:hover {
-            color: #ff0000; /* 滑鼠移過去變紅色 */
-        }
+        .close-btn:hover { color: #ff0000; }
 
         .modal-content h2 {
             margin-top: 10px;
-            border-left: 5px solid #a3af4c; /* 標題線條也改成您的綠色 */
+            border-left: 5px solid #a3af4c;
             padding-left: 10px;
             color: #333;
         }
 
-        @keyframes fadeIn {
-            from {opacity: 0;}
-            to {opacity: 1;}
-        }
-
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
         @media (max-width: 768px) {
             .menu-wrapper { flex-direction: column; gap: 30px; }
             .main-title { font-size: 2.0rem; letter-spacing: 0.5rem; text-indent: 0.5rem; }
