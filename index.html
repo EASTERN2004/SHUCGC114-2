@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>世新卡研 期末社大</title>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <style>
         /* --- 基礎設定 --- */
         body {
@@ -17,22 +15,30 @@
             overflow-x: hidden;
         }
 
-        /* --- 1. 封面區塊 (修正圖片連結) --- */
+        /* ----------------------------------------------------------- */
+        /* [新寫法] 這裡是用來當背景的圖片設定 */
+        /* ----------------------------------------------------------- */
+        #bg-image {
+            position: fixed;   /* 固定在視窗，不隨捲動跑掉 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 讓圖片自動充滿，不會變形 */
+            z-index: -1;       /* 放在最底層 (負數) */
+            opacity: 0.6;      /* 透明度 0.6 (讓背景暗一點，字才看得清楚) */
+            
+            /* 這裡加一點濾鏡，讓文字對比更強 (選用) */
+            filter: brightness(0.5); 
+        }
+
+        /* --- 1. 封面區塊 --- */
         .landing-screen {
             min-height: 100vh;
             width: 100%;
             
-            /* 這是原本的綠色底色 */
-            background-color: #709c63;
-            
-            /* --- 關鍵修改：補上背景圖片指令 --- */
-            /* 請確保您的圖片已經改名為 bg.png */
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('bg.png');
-            
-            background-size: cover;       /* 讓圖片充滿整個螢幕 */
-            background-position: center;  /* 圖片置中 */
-            background-repeat: no-repeat; /* 不重複 */
-            background-attachment: fixed; /* 視差滾動效果 */
+            /* 拿掉原本的 background-image 設定，改用上面的 img 標籤 */
+            background-color: transparent; /* 背景透明，才能看到後面的圖 */
 
             display: flex;
             flex-direction: column;
@@ -56,6 +62,7 @@
             width: 100%;
             max-width: 800px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+            position: relative; /* 確保文字在圖片上面 */
         }
 
         /* --- 選單容器 --- */
@@ -64,6 +71,7 @@
             gap: 50px;
             max-width: 900px;
             width: 100%;
+            position: relative; /* 確保按鈕在圖片上面 */
         }
 
         .menu-column {
@@ -85,7 +93,7 @@
 
         /* --- 按鈕樣式 --- */
         .nav-btn {
-            background-color: rgba(163, 175, 76, 0.9); /* 稍微透明一點 */
+            background-color: rgba(163, 175, 76, 0.9);
             color: white;
             padding: 12px;
             text-align: center;
@@ -144,7 +152,6 @@
             font-weight: bold;
             cursor: pointer;
             line-height: 1;
-            transition: color 0.2s;
             z-index: 101;
         }
 
@@ -166,6 +173,8 @@
     </style>
 </head>
 <body>
+
+    <img id="bg-image" src="bg.png" alt="背景圖片">
 
     <div class="landing-screen">
         <h1 class="main-title">世新卡研114學年度上學期期末社大</h1>
@@ -198,7 +207,6 @@
             <p>這是按鈕 1 的專屬內容。</p>
         </div>
     </div>
-
     <div id="modal2" class="modal-overlay" onclick="closeOutside(event, 'modal2')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal2')">&times;</span>
@@ -206,7 +214,6 @@
             <p>這是按鈕 2 的內容...</p>
         </div>
     </div>
-
     <div id="modal3" class="modal-overlay" onclick="closeOutside(event, 'modal3')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal3')">&times;</span>
@@ -214,7 +221,6 @@
             <p>這是按鈕 3 的內容...</p>
         </div>
     </div>
-
     <div id="modal4" class="modal-overlay" onclick="closeOutside(event, 'modal4')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal4')">&times;</span>
@@ -222,7 +228,6 @@
             <p>這是按鈕 4 的內容...</p>
         </div>
     </div>
-
     <div id="modal5" class="modal-overlay" onclick="closeOutside(event, 'modal5')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal5')">&times;</span>
@@ -230,7 +235,6 @@
             <p>這是按鈕 5 的內容...</p>
         </div>
     </div>
-
     <div id="modal6" class="modal-overlay" onclick="closeOutside(event, 'modal6')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal6')">&times;</span>
@@ -238,7 +242,6 @@
             <p>這是按鈕 6 的內容...</p>
         </div>
     </div>
-
     <div id="modal7" class="modal-overlay" onclick="closeOutside(event, 'modal7')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal7')">&times;</span>
@@ -246,7 +249,6 @@
             <p>這是按鈕 7 的內容...</p>
         </div>
     </div>
-
     <div id="modal8" class="modal-overlay" onclick="closeOutside(event, 'modal8')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal8')">&times;</span>
@@ -254,7 +256,6 @@
             <p>這是按鈕 8 的內容...</p>
         </div>
     </div>
-
     <div id="modal9" class="modal-overlay" onclick="closeOutside(event, 'modal9')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal9')">&times;</span>
@@ -262,7 +263,6 @@
             <p>這是按鈕 9 的內容...</p>
         </div>
     </div>
-
     <div id="modal10" class="modal-overlay" onclick="closeOutside(event, 'modal10')">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('modal10')">&times;</span>
@@ -277,13 +277,11 @@
             modal.style.display = "block";
             document.body.style.overflow = "hidden";
         }
-
         function closeModal(modalId) {
             var modal = document.getElementById(modalId);
             modal.style.display = "none";
             document.body.style.overflow = "auto";
         }
-
         function closeOutside(event, modalId) {
             if (event.target.id === modalId) {
                 closeModal(modalId);
