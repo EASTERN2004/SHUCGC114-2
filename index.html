@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>世新卡研期末社大</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link href="images/favicon.ico.ico" rel="icon" />
+
+    <style>
+        /* --- 基礎設定 --- */
+        body {
+            font-family: "Microsoft JhengHei", "Heiti TC", sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #333; /* 為了防止彈窗邊緣漏白，底色統一 */
+            overflow-x: hidden; /* 禁止水平捲動 */
+        }
+
+        /* --- 1. 封面區塊 (保持原本設計) --- */
+        .landing-screen {
+            min-height: 100vh;
+            width: 100%;
+            background-color: #709c63;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 20px;
+            box-sizing: border-box;
+        }
+
+        /* --- 主標題 --- */
+        .main-title {
+            color: white;
+            font-size: 3.0rem;
+            font-weight: 500;
+            margin-bottom: 40px;
+            letter-spacing: 2.0rem;
+            text-indent: 2.0rem;
+            text-align: center;
+            border-bottom: 3px solid rgba(255, 255, 255, 0.3);
+            padding-bottom: 20px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        /* --- 選單容器 --- */
+        .menu-wrapper {
+            display: flex;
+            gap: 50px;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .menu-column {
+            flex: 5;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .column-title {
+            color: #ffffff;
+            text-align: center;
+            font-size: 2.0rem;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed #ffffff;
+            padding-bottom: 10px;
+        }
+
+        /* --- 按鈕樣式 (修改為 cursor: pointer) --- */
+        .nav-btn {
+            background-color: #a3af4c;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.0rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(221, 156, 156, 0.3);
+            border: 1px solid #4CAF50;
+            cursor: pointer; /* 讓游標變手指 */
+            display: block;  /* 確保按鈕佔滿寬度 */
+        }
+
+        .nav-btn:hover {
+            background-color: #333;
+            color: #4CAF50;
+            transform: translateY(-2px);
+        }
+
+        /* ------------------------------------------------ */
+        /* --- 關鍵新增：Modal (彈跳視窗) 的 CSS --- */
+        /* ------------------------------------------------ */
+
+        /* 1. 遮罩背景 (預設隱藏 display: none) */
+        .modal-overlay {
+            display: none; /* 預設不顯示 */
+            position: fixed; /* 固定在視窗上，不隨捲動跑掉 */
+            z-index: 1000; /* 確保在最上層 */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* 如果內容太長，視窗內可以捲動 */
+            background-color: rgba(0,0,0,0.7); /* 半透明黑色背景 */
+            backdrop-filter: blur(5px); /* 背景模糊效果 (讓質感提升) */
+            animation: fadeIn 0.3s; /* 淡入動畫 */
+        }
+
+        /* 2. 視窗內容區塊 */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10vh auto; /* 距離頂部 10% */
+            padding: 30px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 500px; /* 最大寬度 */
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            color: #333; /* 內容文字顏色 */
+        }
+
+        /* 3. 關閉按鈕 (X) */
+        .close-btn {
+            color: #aaa;
+            float: right;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1; /* 修正垂直對齊 */
+        }
+
+        .close-btn:hover,
+        .close-btn:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* 4. Modal 標題樣式 */
+        .modal-content h2 {
+            margin-top: 0;
+            border-left: 5px solid #4CAF50;
+            padding-left: 10px;
+            color: #333;
+        }
+
+        /* 淡入動畫定義 */
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        /* 手機版適應 */
+        @media (max-width: 768px) {
+            .menu-wrapper { flex-direction: column; gap: 30px; }
+            .main-title { font-size: 2.5rem; letter-spacing: 0.5rem; text-indent: 0.5rem; }
+            .modal-content { margin: 20% auto; width: 85%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="landing-screen">
+        <h1 class="main-title">世新卡研114學年度上學期期末社大</h1>
+
+        <div class="menu-wrapper">
+            <div class="menu-column">
+                <div class="column-title">上半部內容</div> 
+                <div class="nav-btn" onclick="openModal('modal1')">1. 按鈕一</div>
+                <div class="nav-btn" onclick="openModal('modal2')">2. 按鈕二</div>
+                <div class="nav-btn" onclick="openModal('modal3')">3. 按鈕三</div>
+                <div class="nav-btn" onclick="openModal('modal4')">4. 按鈕四</div>
+                <div class="nav-btn" onclick="openModal('modal5')">5. 按鈕五</div>
+            </div>
+
+            <div class="menu-column">
+                <div class="column-title">下半部內容</div>
+                <div class="nav-btn" onclick="openModal('modal6')">6. 按鈕六</div>
+                <div class="nav-btn" onclick="openModal('modal7')">7. 按鈕七</div>
+                <div class="nav-btn" onclick="openModal('modal8')">8. 按鈕八</div>
+                <div class="nav-btn" onclick="openModal('modal9')">9. 按鈕九</div>
+                <div class="nav-btn" onclick="openModal('modal10')">10. 按鈕十</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal1" class="modal-overlay" onclick="closeOutside(event, 'modal1')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal1')">&times;</span>
+            <h2>這裡是第 1 個視窗</h2>
+            <p>這是按鈕 1 的專屬內容。您可以在這裡放入文字、圖片或影片。</p>
+            <p>例如：<br>社團名稱：OO社<br>介紹：....</p>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal-overlay" onclick="closeOutside(event, 'modal2')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal2')">&times;</span>
+            <h2>這裡是第 2 個視窗</h2>
+            <p>這是按鈕 2 的內容...</p>
+        </div>
+    </div>
+
+    <div id="modal3" class="modal-overlay" onclick="closeOutside(event, 'modal3')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal3')">&times;</span>
+            <h2>這裡是第 3 個視窗</h2>
+            <p>這是按鈕 3 的內容...</p>
+        </div>
+    </div>
+
+    <div id="modal4" class="modal-overlay" onclick="closeOutside(event, 'modal4')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal4')">&times;</span>
+            <h2>這裡是第 4 個視窗</h2>
+            <p>這是按鈕 4 的內容...</p>
+        </div>
+    </div>
+
+    <div id="modal5" class="modal-overlay" onclick="closeOutside(event, 'modal5')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal5')">&times;</span>
+            <h2>這裡是第 5 個視窗</h2>
+            <p>這是按鈕 5 的內容...</p>
+        </div>
+    </div>
+
+    <div id="modal6" class="modal-overlay" onclick="closeOutside(event, 'modal6')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal6')">&times;</span>
+            <h2>這裡是第 6 個視窗</h2>
+            <p>這是按鈕 6 的內容...</p>
+        </div>
+    </div>
+
+    <div id="modal7" class="modal-overlay" onclick="closeOutside(event, 'modal7')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal7')">&times;</span>
+            <h2>這裡是第 7 個視窗</h2>
+            <p>這是按鈕 7 的內容...</p>
+        </div>
+    </div>
+
+    <div id="modal8" class="modal-overlay" onclick="closeOutside(event, 'modal8')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal8')">&times;</span>
+            <h2>這裡是第 8 個視窗</h2>
+            <p>這是按鈕 8 的內容...</p>
+        </div>
+    </div>
+
+    <div id="modal9" class="modal-overlay" onclick="closeOutside(event, 'modal9')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal9')">&times;</span>
+            <h2>這裡是第 9 個視窗</h2>
+            <p>這是按鈕 9 的內容...</p>
+        </div>
+    </div>
+
+    <div id="modal10" class="modal-overlay" onclick="closeOutside(event, 'modal10')">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('modal10')">&times;</span>
+            <h2>這裡是第 10 個視窗</h2>
+            <p>這是按鈕 10 的內容...</p>
+        </div>
+    </div>
+
+    <script>
+        // 打開視窗
+        function openModal(modalId) {
+            var modal = document.getElementById(modalId);
+            modal.style.display = "block";
+            // 當視窗打開時，禁止背景捲動
+            document.body.style.overflow = "hidden";
+        }
+
+        // 關閉視窗 (點擊 X)
+        function closeModal(modalId) {
+            var modal = document.getElementById(modalId);
+            modal.style.display = "none";
+            // 視窗關閉後，恢復背景捲動
+            document.body.style.overflow = "auto"; // 如果希望主頁不捲動，這裡可以保持 hidden
+        }
+
+        // 點擊黑色背景區域也能關閉視窗
+        function closeOutside(event, modalId) {
+            if (event.target.id === modalId) {
+                closeModal(modalId);
+            }
+        }
+    </script>
+
+</body>
+</html>
